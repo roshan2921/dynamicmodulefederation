@@ -44,10 +44,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      remotes: {
-        flights: 'http://localhost:4201/remoteEntry.js',
-        bookings: 'http://localhost:4202/remoteEntry.js',
-      },
+      remotes: {},
       shared: share({
         '@angular/core': {
           singleton: true,
