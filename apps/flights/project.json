@@ -1,0 +1,101 @@
+{
+  "projectType": "application",
+  "root": "apps/flights",
+  "sourceRoot": "apps/flights/src",
+  "prefix": "dynamicmf",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/flights",
+        "index": "apps/flights/src/index.html",
+        "main": "apps/flights/src/main.ts",
+        "polyfills": "apps/flights/src/polyfills.ts",
+        "tsConfig": "apps/flights/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/flights/src/favicon.ico", "apps/flights/src/assets"],
+        "styles": ["apps/flights/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/flights/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/flights/src/environments/environment.ts",
+              "with": "apps/flights/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/flights/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "flights:build:production"
+        },
+        "development": {
+          "browserTarget": "flights:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "flights:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/flights/src/**/*.ts",
+          "apps/flights/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/flights"],
+      "options": {
+        "jestConfig": "apps/flights/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
